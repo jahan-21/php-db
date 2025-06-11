@@ -13,14 +13,10 @@ $sql = "INSERT INTO registration (name, age, gender, address, vehicle, number, v
         VALUES ('$name', '$age', '$gender', '$address', '$vehicle', '$number', '$vehicleowned')";
 
 
-{
+if ($conn->query($sql) === TRUE) {
   echo "New record created successfully";
-   header("Location:view.php");//this line is for viewing the inserted data
-} 
-
-else 
-
-{
+   header("Location:view.php");
+} else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 $conn->close();
