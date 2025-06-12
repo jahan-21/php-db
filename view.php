@@ -1,23 +1,20 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>data view</title>
-</head>
-<style>
-    
-     body 
-       {
+    <title>Data View</title>
+    <style>
+        body {
             font-family: Arial;
             background-color: #f0f8ff;
             padding: 20px;
             text-align: center;
         }
 
-        table
-        {
+        table {
             margin: 20px auto;
             width: 90%;
             background-color: #ffffff;
-            
+            border-collapse: collapse;
         }
 
         th, td {
@@ -31,19 +28,33 @@
             background-color: #4CAF50;
             color: black;
         }
-</style>
+
+        button a {
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        button a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
 <body>
 
     <button><a href="index.php">Add Registration</a></button>
 
     <?php
-    include('connection.php'); 
+    include('connection.php');
 
     $sql = "SELECT * FROM registration";
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        echo "<table >
+    if ($result->num_rows > 0) 
+    {
+        echo "<table>
                 <tr>
                     <th>ID</th>
                     <th>NAME</th>
@@ -52,37 +63,37 @@
                     <th>ADDRESS</th>
                     <th>VEHICLE TYPE</th>
                     <th>NUMBER</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
                 </tr>";
-        while($row = $result->fetch_assoc()) 
-        {
+
+        while($row = $result->fetch_assoc()) {
             echo "<tr>"; 
-            echo "<td>"; 
-            echo $row['id'];  
-            echo "</td>";
-            echo "<td>"; 
-            echo $row['name'];  
-            echo "</td>";  
-            echo "<td>";   
-            echo $row["age"];   
-            echo "</td>";  
-            echo "<td>";    
-            echo $row["gender"];   
-            echo "</td>";  
-            echo "<td>";    
-            echo $row["address"];   
-            echo "</td>";  
-            echo "<td>";    
-            echo $row["vehicle"];   
-            echo "</td>";  
-            echo "<td>";    
-            echo $row["number"];   
-            echo "</td>"; 
-            echo "</tr>";  
-        }
-        echo "</table>";
-    } 
-    
-    $conn->close();
-    ?>
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['name'] . "</td>";
+            echo "<td>" . $row['age'] . "</td>";
+            echo "<td>" . $row['gender'] . "</td>";
+            echo "<td>" . $row['address'] . "</td>";
+            echo "<td>" . $row['vehicle'] . "</td>";
+            echo "<td>" . $row['number'] . "</td>";
+            echo "<td><a href='edit.php?editid=" . $row['id'] . "'>Edit</a></td>";
+            echo '<td><a href="delete.php?deleteid=' . $row['id'] . '">Delete</a></td>';
+
+           ?>
+            
+           <?php
+ 
+            echo "</br>";
+            echo "</tr>";
+   }
+  ?>
+  </table>
+  <?php
+} 
+else 
+{
+  echo "0 results";
+}
+?>
 </body>
 </html>
